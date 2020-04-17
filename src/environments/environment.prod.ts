@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  url: 'https://cclccsp.com/',
+  location: 'candyclub.com',
+  name: 'production',
 };
