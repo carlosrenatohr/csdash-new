@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  url: 'https://qa.cclccsp.com/ccsp/',
-  location: 'localhost:4200',
-  name: 'local'
+  url: 'https://qa.cclccsp.com/ccsp',
+  location: 'qa.candyclub.com',
+  name: 'qa'
 };
 
 /*
