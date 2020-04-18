@@ -3,7 +3,7 @@ import { ShipmentModel } from 'src/app/shared/models/shipment.model';
 import { ShipmentService } from 'src/app/shared/services/shipment.service';
 
 @Component({
-    selector: 'ccsp-datatable',
+    selector: 'pa-datatable',
     templateUrl: './datatable.component.html',
     styleUrls: ['datatable.component.scss']
 })
@@ -22,8 +22,10 @@ export class DatatableComponent implements OnInit {
         console.log('dataQuery', query);
         this.shipmentService.getPendingApprovalShipments(query, {})
             .subscribe(response => {
-                console.log('data');
-                console.log(response);
+                this.shipments = response;
+                console.log(this.shipments.length);
+            }, (error) => {
+                console.log('Request error detected' + error.message);
             });
     }
 }

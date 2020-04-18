@@ -8,4 +8,5 @@ import { Component } from '@angular/core';
 
 export class HomeComponent {
 
+    show:boolean = false;
 }

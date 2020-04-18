@@ -3,13 +3,16 @@ import { RouterModule } from '@angular/router';
 import { PendingApprovalRoutes } from './pending-approval.routing';
 import { PendingApprovalContainer } from './containers/pending-approval/pending-approval.container';
 import { DatatableComponent } from './components/datatable/datatable.component';
-import { HttpClientModule} from '@angular/common/http'
-import { ShipmentService } from 'src/app/shared/services/shipment.service';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CommonModule } from '@angular/common';
+
+
 
 @NgModule({
     imports: [
         RouterModule.forChild(PendingApprovalRoutes),
-        HttpClientModule
+        SharedModule,
+        // CommonModule
 
     ],
     declarations: [
@@ -18,7 +21,6 @@ import { ShipmentService } from 'src/app/shared/services/shipment.service';
     ],
     exports: [],
     providers: [
-        ShipmentService,
         
     ]
 })

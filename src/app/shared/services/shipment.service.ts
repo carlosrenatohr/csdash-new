@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
+import { ShipmentModel}  from 'src/app/shared/models/shipment.model';
 
 @Injectable({ providedIn: 'root'})
 
@@ -17,14 +19,19 @@ export class ShipmentService {
 
         console.log(this.baseurl, 'urll');
         return this.http.get(
-        
             this.baseurl + 'shipments/pending_approval_json', 
             {
                 headers: new HttpHeaders({}),
                 params: params,
                 responseType: 'json'
             }
-        );
+        ).pipe(map(data => {
+            const shipmentsArray: ShipmentModel[] = [];
+            for (const key in data) {
+                shipmentsArray.push({ ...data[key] });
+            }
+            return shipmentsArray;
+        }));
     }
     
 }

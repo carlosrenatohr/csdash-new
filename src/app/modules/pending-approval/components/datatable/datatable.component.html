@@ -1,15 +1,15 @@
-<div>
+<p *ngIf="shipments.length < 1 ">
     No shipments found.
-</div>
+</p>
 
-<div id="shipment-search">
-    <table class="flakes-table" style="width:100%" id="shipment-list">
+<div  id="shipment-search" >
+    <table *ngIf="shipments.length > 0 " class="table" id="shipment-list">
         <colgroup>
             <col span="1" style="width:20px" />
         </colgroup>
         <thead>
             <tr>
-                <td></td>
+                <td>1</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -123,19 +123,30 @@
             </tr>
         </thead>
         <tbody>
-            
-            <tr>
+            <tr *ngFor="let shipment of shipments">
                 <td>&nbsp;</td>
                 <td><input type="checkbox" value="" class="shipment_item"></td>
                 <td><a class="button-pink smaller button_void">Void</a></td>
-                <td class="order_id"><span></span></td>
-                <td class="shipment_id"><span></span></td>
-                <td class="date"><span></span></td>
-                <td class="days_pending"><span></span></td>
-                <td class="status"><span></span></td>
-                <td class="note"><span></span></td>
+                <td class="order_id"><span></span>
+                    {{ shipment.order_id }}
+                </td>
+                <td class="shipment_id"><span></span>
+                    {{ shipment.shipment_id }}
+                </td>
+                <td class="date"><span></span>
+                    {{ shipment.date_created }}
+                </td>
+                <td class="days_pending"><span></span>
+                
+                </td>
+                <td class="status"><span></span>
+                    {{ shipment.status }}
+                </td>
+                <td class="note"><span></span>
+                    {{ shipment.note }}
+                </td>
                 <td class="facility editable">
-                    <span></span>
+                    <!-- <span></span> -->
                     <select>
                         <option value="">--</option>
                         <option value="1">IND</option>
@@ -144,7 +155,7 @@
                     <span class="overlay"></span>
                 </td>
                 <td class="shipping_method editable">
-                    <span>FedEx Ground</span>
+                    <!-- <span>FedEx Ground</span> -->
                     <select name="shipment_carrier">
                         <option value="">--</option>
                         <option value="FEDH">FedEx Home</option>
@@ -153,15 +164,18 @@
                         <option value="UPSG">UPS Ground</option>
                         <option value="UPSS">UPS SurePost</option>
                         <option value="IDSA">IDSA</option>
-
                     </select>
                     <span class="overlay"></span>
                 </td>
-                <td class="state"><span></span></td>
+                <td class="state"><span></span>
+                    {{ shipment.state }}
+                </td>
                 <td class="ww"></td>
                 <td class="chocolate_state"></td>
                 <td class="contains_chocolate"></td>
-                <td class="sku editable"><span></span><input type="text" name="sku" value=""></td>
+                <td class="sku editable"><span></span><input type="text" name="sku" value="">
+                    {{ shipment.sku }}
+                </td>
                 <td class="item_count"></td>
                 <td class="sku_update">
                     <a class="button-pink smaller button_update_sku" data-new-sku="" data-heat-code="" >Make </a>
@@ -169,7 +183,7 @@
                 <td class="local_weather editable read-only">
                     <span></span>
                     <select>
-                        
+                    
                         <option value=""></option> 
                         
                     </select>
@@ -184,15 +198,23 @@
                     </select>
                     <span class="overlay"></span>
                 </td>
-                <td class="sku_error"></td>
+                <td class="sku_error">
+                    
+                </td>
                
 
-                <td class="gift_card_sku"><span></span></td>
+                <td class="gift_card_sku"><span></span>
+                    {{ shipment.gift_card_sku }}
+                </td>
                 <td class= "last_skus_on_demand">
                     <a class="button-pink smaller button_last_skus" data-order-id="" data-shipment-id="">Last SKUs</a>
                 </td>
-                <td class="customer"><span></span></td>
-                <td class="shipping_info"><span></span></td>
+                <td class="customer"><span></span>
+                
+                </td>
+                <td class="shipping_info"><span></span>
+                    {{ shipment.order_id }}
+                </td>
             </tr>
             
         </tbody>
