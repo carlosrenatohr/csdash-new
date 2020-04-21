@@ -9,6 +9,7 @@ import { ShipmentModel}  from 'src/app/shared/models/shipment.model';
 export class ShipmentService {
 
     private baseurl = environment.url + '';
+    private pa_paginator;
     constructor(private http: HttpClient) {
     }
 
@@ -27,8 +28,15 @@ export class ShipmentService {
             }
         ).pipe(map(data => {
             const shipmentsArray: ShipmentModel[] = [];
-            for (const key in data) {
-                shipmentsArray.push({ ...data[key] });
+            // const shipments = {...Object.entries(data)};
+            if (data.hasOwnProperty('total_shipments')) {
+                const { shipments, ...pagination } = data;
+                console.log('shipm', shipments);  
+                console.log('shipm', pagination);  
+                this.pa_paginator = pagination;
+                for (const key in shipments) {
+                    shipmentsArray.push({ ...shipments[key] });
+                }
             }
             return shipmentsArray;
         }));
