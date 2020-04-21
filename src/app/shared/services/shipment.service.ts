@@ -18,8 +18,6 @@ export class ShipmentService {
         const params = new HttpParams();
         params.append('q', search);    
         if (Object.keys(queryParams).length > 0) {}
-
-        console.log(this.baseurl, 'urll');
         return this.http.get(
             this.baseurl + 'shipments/pending_approval_json', 
             {
@@ -28,19 +26,19 @@ export class ShipmentService {
                 responseType: 'json'
             }
         ).pipe(map((data: ShipmentsPendingApprovalResponse) => {
-
             const shipmentsArray: ShipmentModel[] = [];
+            const pagination = {};
             // const shipmentsObj = {...Object.entries(data)};
             if (data.hasOwnProperty('total_shipments')) {
-                const {shipments, ...pagination } = data;    
-                console.log('shipm', shipments);  
-                console.log('shipm', pagination);  
-                this.pa_paginator = pagination;
+                const {shipments, ...pagination } = data;     
                 for (const key in shipments) {
                     shipmentsArray.push({ ...shipments[key] }); 
                 }
             }
-            return shipmentsArray;
+            return {
+                'shipments': shipmentsArray,
+                'pagination': pagination
+            };
         }));
     }
     

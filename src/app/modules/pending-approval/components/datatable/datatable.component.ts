@@ -22,10 +22,13 @@ export class DatatableComponent implements OnInit {
         console.log('dataQuery', query);
         this.shipmentService.getPendingApprovalShipments(query, {})
             .subscribe(response => {
-                this.shipments = response;
-                console.log(this.shipments.length);
+                this.shipments = response.shipments;
+                console.log('shipments', response.shipments);
+                console.log('pagination', response.pagination);
             }, (error) => {
-                console.log('Request error detected' + error.message);
+                console.log('Request error detected ' + error.message);
             });
+        
+
     }
 }
