@@ -1,0 +1,58 @@
+
+<div class="signin">
+
+<!-- Preloader -->
+<div id="preloader" style="display: none;">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+
+<section>
+
+    <div class="signinpanel">
+
+        <div class="row">
+
+            <div class="col-md-4"></div><!-- col-sm-7 -->
+
+            <div class="col-md-5">
+
+                <img src="/assets/images/login/logocandyclub.png">  
+                <div class="mb20"></div>
+                <!-- <div><?php echo validation_errors(); ?></div> -->
+                <!-- <?php if($this->flag_logout!=''): ?> -->
+                <div class="alert alert-danger">Unable to Login at this moment</div>
+                <!-- <?php endif; ?> -->
+                <form method="post" action="<?= site_url('csdashboard/login/verify')?>">
+                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
+                    <h4 class="nomargin">Sign In</h4>
+                    <p class="mt5 mb20">Login to access CSDashboard.</p>
+
+                    <input type="text" class="form-control uname" name="username" placeholder="Username" />
+                    <input type="password" class="form-control pword" name="password" placeholder="Password" />
+                    <button class="btn btn-success btn-block">Sign In</button>
+
+                </form>
+            </div><!-- col-sm-5 -->
+
+        </div><!-- row -->
+
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2015. All Rights Reserved. Candy Club
+            </div>
+        </div>
+
+    </div><!-- signin -->
+
+</section>
+
+
+<!-- <script src="<?= base_url()?>assets/js/jquery-1.10.2.min.js"></script> -->
+<!-- <script src="<?= base_url()?>assets/js/jquery-migrate-1.2.1.min.js"></script> -->
+<!-- <script src="<?= base_url()?>assets/js/bootstrap.min.js"></script> -->
+<!-- <script src="<?= base_url()?>assets/js/modernizr.min.js"></script> -->
+<!-- <script src="<?= base_url()?>assets/js/retina.min.js"></script> -->
+
+<!-- <script src="<?= base_url()?>assets/js/custom.js"></script> -->
+
+</div>

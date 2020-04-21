@@ -7,11 +7,20 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    // redirectTo: '/login'
   },
   {
-    path: 'pending',
+    path: 'login',
+    loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) 
+  },
+  {
+    path: 'pending-approval',
     loadChildren: () => import('./modules/pending-approval/pending-approval.module').then(m => m.PendingApprovalModule)
+  },
+  {
+    path: '**',
+    redirectTo: '/login'
   }
   
 ];
