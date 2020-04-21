@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { ShipmentModel}  from 'src/app/shared/models/shipment.model';
+import { ShipmentsPendingApprovalResponse } from '../models/shipments_pa_response.model';
 
 @Injectable({ providedIn: 'root'})
 
@@ -26,16 +27,17 @@ export class ShipmentService {
                 params: params,
                 responseType: 'json'
             }
-        ).pipe(map(data => {
+        ).pipe(map((data: ShipmentsPendingApprovalResponse) => {
+
             const shipmentsArray: ShipmentModel[] = [];
-            // const shipments = {...Object.entries(data)};
+            // const shipmentsObj = {...Object.entries(data)};
             if (data.hasOwnProperty('total_shipments')) {
-                const { shipments, ...pagination } = data;
+                const {shipments, ...pagination } = data;    
                 console.log('shipm', shipments);  
                 console.log('shipm', pagination);  
                 this.pa_paginator = pagination;
                 for (const key in shipments) {
-                    shipmentsArray.push({ ...shipments[key] });
+                    shipmentsArray.push({ ...shipments[key] }); 
                 }
             }
             return shipmentsArray;
