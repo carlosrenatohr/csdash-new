@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { ShipmentModel}  from 'src/app/shared/models/shipment.model';
 import { ShipmentsPendingApprovalResponse } from '../models/shipments_pa_response.model';
 
@@ -10,36 +11,66 @@ import { ShipmentsPendingApprovalResponse } from '../models/shipments_pa_respons
 export class ShipmentService {
 
     private baseurl = environment.url + '';
-    private pa_paginator;
-    constructor(private http: HttpClient) {
+    // private pa_paginator;
+    paginatorSource$ = new BehaviorSubject<any>({});
+    paginatorSource
+    pendingApprovalShipmentsSource: ShipmentModel[];
+    pendingApprovalShipmentsSource$: BehaviorSubject<ShipmentModel[]>;
+
+    constructor(private http: HttpClient) { 
+        // this.initPendingApprovalshipments();
     }
 
-    getPendingApprovalShipments(search: string, queryParams?: {}) {
-        const params = new HttpParams();
-        params.append('q', search);    
-        if (Object.keys(queryParams).length > 0) {}
-        return this.http.get(
-            this.baseurl + 'shipments/pending_approval_json', 
-            {
-                headers: new HttpHeaders({}),
-                params: params,
-                responseType: 'json'
-            }
+    initPendingApprovalshipments(search?: string, queryParams?: any) { 
+        search = (search) ? search.trim() : '';
+        const params = search ? { params: new HttpParams().set('q', search) } : {};
+        const headers = new HttpHeaders({})
+        const path = 'shipments/pending_approval_json/';
+        let pathParams = '';
+        if (queryParams) {
+            pathParams += ((queryParams.hasOwnProperty('rows_per_page')) ? queryParams.rows_per_page : '50') + '/';
+            pathParams += ((queryParams.hasOwnProperty('sort_by')) ? queryParams.sort_by : 'date_created') + '/';
+            pathParams += ((queryParams.hasOwnProperty('sort_order')) ? queryParams.sort_by : 'ASC') + '/';
+            pathParams += ((queryParams.hasOwnProperty('start')) ? queryParams.start : '0') + '/';
+        }
+
+        if (!this.pendingApprovalShipmentsSource$) {
+            this.pendingApprovalShipmentsSource$ = <BehaviorSubject<ShipmentModel[]>> new BehaviorSubject(new Array<ShipmentModel>()); 
+        }
+        this.http.get(
+            this.baseurl + path + pathParams,
+            {...params, ...headers, responseType: 'json'}
+            
         ).pipe(map((data: ShipmentsPendingApprovalResponse) => {
             const shipmentsArray: ShipmentModel[] = [];
             const pagination = {};
             // const shipmentsObj = {...Object.entries(data)};
-            if (data.hasOwnProperty('total_shipments')) {
-                const {shipments, ...pagination } = data;     
+            if (data.hasOwnProperty('shipments_found') && data.shipments_found) {
+                const {shipments, shipments_found,  ...pagination } = data;     
                 for (const key in shipments) {
                     shipmentsArray.push({ ...shipments[key] }); 
                 }
+                return {
+                    'shipments': shipmentsArray,
+                    'pagination': pagination
+                };
             }
-            return {
-                'shipments': shipmentsArray,
-                'pagination': pagination
-            };
-        }));
+        }))
+        .subscribe(response => {
+            this.paginatorSource$.next(response.pagination);
+            this.paginatorSource = response.pagination;
+            this.pendingApprovalShipmentsSource$.next(response.shipments);
+            this.pendingApprovalShipmentsSource = response.shipments;
+        })
+        
+    }
+
+    getPendingApprovalShipments(): Observable<ShipmentModel[]> {
+        return this.pendingApprovalShipmentsSource$.asObservable();
+    }
+
+    getPendingApprovalPagination(): Observable<ShipmentModel[]> {
+        return this.paginatorSource$.asObservable();
     }
     
 }

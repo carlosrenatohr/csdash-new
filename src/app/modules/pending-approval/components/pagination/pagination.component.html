@@ -1,0 +1,16 @@
+<div *ngIf="showPagination">
+  
+  <nav  aria-label="Page navigation example">
+    <pagination 
+      [totalItems]="pagination.total_shipments"
+      [maxSize]="paginationData.maxSize"
+      [boundaryLinks]="paginationData.boundaryLinks" 
+      (pageChanged)="pageChanged($event)" 
+      [(ngModel)]="currentPage"
+      ></pagination>     
+  </nav>
+    
+  <!-- <button class="btn btn-primary" (click)="setPage()">Set to Page 91</button> -->
+  <!-- <b>Current Page: {{ currentPage }}</b>   -->
+</div>
+  

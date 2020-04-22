@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['bottom-button-actions.component.scss']
 })
 
-export class BottomButtonActions {
+export class BottomButtonActionsComponent {
 
 }

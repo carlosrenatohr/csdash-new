@@ -6,6 +6,6 @@ export class ShipmentsPendingApprovalResponse {
     sort_order: string;
     rows_per_page: number;
     start: number;
-    shipments: ShipmentModel[];
+    shipments?: ShipmentModel[];
     total_shipments: number;
 }
