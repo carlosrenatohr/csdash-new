@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, OnDestroy } from '@angular/core';
 import { ShipmentService } from 'src/app/shared/services/shipment.service';
 import { ShipmentModel } from 'src/app/shared/models/shipment.model';
 import { Observable } from 'rxjs';
@@ -11,9 +11,8 @@ import { EventEmitter } from 'protractor';
     templateUrl: './pagination.component.html',
     styleUrls: ['pagination.component.scss'] 
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnDestroy {
 
-    // @Output() pagesInfoSound:EventEmitter = new EventEmitter();
     public currentPage: number;
     public showPagination: boolean = false;
     public pagination;
@@ -25,19 +24,28 @@ export class PaginationComponent implements OnInit {
         directionLinks: true,
         rotate: true
     };
+    topSearchString: string = '';
     pagination$: Observable<any>;
+    shipments$: Observable<ShipmentModel[]>
+    topSearchString$: Observable<string>;
 
     constructor(private shipmentService: ShipmentService) {}
+
     ngOnInit() {
         this.getPaginationData();
     }
 
     getPaginationData() {
-        this.shipmentService.paginatorSource$.subscribe(pagination => {
+        this.pagination$ = this.shipmentService.getPendingApprovalPagination();
+        this.pagination$.subscribe(pagination => {
             console.log('pagination on component pages', pagination);
             this.pagination = {...pagination, ...this.paginationData};
             console.log('global obj page', this.pagination);
             this.showPagination = true; 
+        })
+        //
+        this.shipmentService.topSearchString.subscribe( str => {
+            this.topSearchString = str;
         })
     }
 
@@ -46,19 +54,22 @@ export class PaginationComponent implements OnInit {
         this.currentPage = event.page;
         //
         const pathParams = { rows_per_page: this.paginationData.itemsPerPage, start: ((this.paginationStart) + (+this.currentPage * (this.paginationData.itemsPerPage))) };
-        this.shipmentService.initPendingApprovalshipments('', pathParams);
-        this.pagination$ = this.shipmentService.getPendingApprovalPagination()
-        this.pagination$.subscribe(resp => {
-        // this.shipments$.subscribe(response => { 
+        this.shipmentService.initPendingApprovalshipments(this.topSearchString, pathParams);
+        this.shipments$ = this.shipmentService.getPendingApprovalPagination()
+        this.shipments$.subscribe(resp => {
             this.pagination = resp;
             console.log('response on pagination', resp);
             // 
-            // this.pagesInfoSound.emit(this.currentPage.toString());
         });
     }
 
     getTotalPages(ev) {
         console.log('Total Pages changed: ' + ev);
+    }
+
+    ngOnDestroy() {
+        // this.pagination$.unsubscribe();
+        // this.shipments$.complete();
     }
 
 }

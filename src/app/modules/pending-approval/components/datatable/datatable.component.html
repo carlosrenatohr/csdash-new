@@ -9,7 +9,7 @@
         </colgroup>
         <thead>
             <tr>
-                <td>1</td>
+                <td>-</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -18,47 +18,47 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <input class="search-error column-search" placeholder="Search Error" style="width: 100%; min-width: 80px" data-key="8">
+                    <input class="form-control search-error column-search" placeholder="Search Error" style="width: 100%; min-width: 80px" data-key="8">
                 </td>
                 <td></td>
                 <td></td>
                 <td>
-                    <input class="search-state column-search" placeholder="Search State" style="width: 100%; min-width: 100%" data-key="11">
+                    <input class="form-control search-state column-search" placeholder="Search State" style="width: 100%; min-width: 100%" data-key="11">
                 </td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td>
-                    <input class="search-sku column-search" placeholder="Search SKU" style="width: 100%; min-width: 120px" data-key="15">
+                    <input class="form-control search-sku column-search" placeholder="Search SKU" style="width: 100%; min-width: 120px" data-key="15">
+                </td>
+                <td></td>
+                <!-- <td></td> -->
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <input class="form-control search-item-1 column-search" placeholder="Search Item 1" style="width: 100%; min-width: 120px" data-key="22">
+                </td>
+                <td>
+                    <input class="form-control search-item-2 column-search" placeholder="Search Item 2" style="width: 100%; min-width: 120px" data-key="23">
+                </td>
+                <td>
+                    <input class="form-control search-item-3 column-search" placeholder="Search Item 3" style="width: 100%; min-width: 120px" data-key="24">
+                </td>
+                <td>
+                    <input class="form-control search-item-4 column-search" placeholder="Search Item 4" style="width: 100%; min-width: 120px" data-key="25">
+                </td>
+                <td>
+                    <input class="form-control search-item-5 column-search" placeholder="Search Item 5" style="width: 100%; min-width: 120px" data-key="26">
+                </td>
+                <td>
+                    <input class="form-control search-item-6 column-search" placeholder="Search Item 6" style="width: 100%; min-width: 120px" data-key="27">
                 </td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>
-                    <input class="search-item-1 column-search" placeholder="Search Item 1" style="width: 100%; min-width: 120px" data-key="22">
-                </td>
-                <td>
-                    <input class="search-item-2 column-search" placeholder="Search Item 2" style="width: 100%; min-width: 120px" data-key="23">
-                </td>
-                <td>
-                    <input class="search-item-3 column-search" placeholder="Search Item 3" style="width: 100%; min-width: 120px" data-key="24">
-                </td>
-                <td>
-                    <input class="search-item-4 column-search" placeholder="Search Item 4" style="width: 100%; min-width: 120px" data-key="25">
-                </td>
-                <td>
-                    <input class="search-item-5 column-search" placeholder="Search Item 5" style="width: 100%; min-width: 120px" data-key="26">
-                </td>
-                <td>
-                    <input class="search-item-6 column-search" placeholder="Search Item 6" style="width: 100%; min-width: 120px" data-key="27">
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -71,7 +71,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                    <input class="search-shipping column-search" placeholder="Search Shipping Info" style="width: 100%" data-key="44">
+                    <input class="form-control search-shipping column-search" placeholder="Search Shipping Info" style="width: 100%" data-key="44">
                 </td>
             </tr>
             <tr class="not_hide">
@@ -92,7 +92,7 @@
                 <td class="contains_chocolate">Contains<br>Chocolate</td>
                 <td class="sku">SKU to ship</td>
                 <td class="sku">Item Count</td>
-                <td class="sku">SKU<br>Update</td>
+                <!-- <td class="sku">SKU<br>Update</td> -->
                 <td class="local_weather">Local<br>Weather</td>
                 <td class="ids_weather">IDS<br>Weather</td>
                 <td class="sku_error">SKU Error</td>
@@ -137,7 +137,8 @@
                     {{ shipment.date_created }}
                 </td>
                 <td class="days_pending"><span></span>
-                
+                    <!-- {{ shipment.from_order_shipment_date}} -->
+                    {{ 5 }}
                 </td>
                 <td class="status"><span></span>
                     {{ shipment.status }}
@@ -147,7 +148,7 @@
                 </td>
                 <td class="facility editable">
                     <!-- <span></span> -->
-                    <select>
+                    <select class="form-control" [value]="shipment.shipped_from_facility">
                         <option value="">--</option>
                         <option value="1">IND</option>
                         <option value="2">SLC</option>
@@ -156,7 +157,7 @@
                 </td>
                 <td class="shipping_method editable">
                     <!-- <span>FedEx Ground</span> -->
-                    <select name="shipment_carrier">
+                    <select class="form-control" name="shipment_carrier" [value]="shipment.shipment_carrier">
                         <option value="">--</option>
                         <option value="FEDH">FedEx Home</option>
                         <option value="FXSP">FedEx SmartPost</option>
@@ -168,21 +169,24 @@
                     <span class="overlay"></span>
                 </td>
                 <td class="state"><span></span>
-                    {{ shipment.state }}
+                    {{ shipment.shipping_state }}
                 </td>
                 <td class="ww"></td>
                 <td class="chocolate_state"></td>
                 <td class="contains_chocolate"></td>
-                <td class="sku editable"><span></span><input type="text" name="sku" value="">
-                    {{ shipment.sku }}
+                <td class="sku editable">
+                    <span></span>
+                    <input class="form-control" type="text" name="sku" [value]="shipment.sku">
                 </td>
-                <td class="item_count"></td>
-                <td class="sku_update">
-                    <a class="button-pink smaller button_update_sku" data-new-sku="" data-heat-code="" >Make </a>
+                <td class="item_count">
+                    {{ 6 }}
                 </td>
+                <!-- <td class="sku_update"> -->
+                    <!-- <a class="button-pink smaller button_update_sku" data-new-sku="" data-heat-code="" >Make </a> -->
+                <!-- </td> -->
                 <td class="local_weather editable read-only">
                     <span></span>
-                    <select>
+                    <select class="form-control">
                     
                         <option value=""></option> 
                         
@@ -191,7 +195,7 @@
                 </td>
                 <td class="ids_weather editable read-only">
                     <span></span>
-                    <select>
+                    <select class="form-control">
                         
                         <option value="" ></option>
                         
@@ -201,19 +205,25 @@
                 <td class="sku_error">
                     
                 </td>
+
+                <td *ngFor="let a of customCandies">
+                    -
+                </td>
                
 
                 <td class="gift_card_sku"><span></span>
-                    {{ shipment.gift_card_sku }}
+                    {{ shipment.sku_gift_card }}
                 </td>
                 <td class= "last_skus_on_demand">
                     <a class="button-pink smaller button_last_skus" data-order-id="" data-shipment-id="">Last SKUs</a>
                 </td>
                 <td class="customer"><span></span>
-                
+                    {{ shipment.email }}
                 </td>
                 <td class="shipping_info"><span></span>
-                    {{ shipment.order_id }}
+                    {{ shipment.shipping_first_name + ' ' + shipment.shipping_first_name + ' ' + shipment.shipping_street_1 + ' ' + 
+                        shipment.shipping_street_2 + ' ' + shipment.shipping_city + ' ' +
+                        shipment.shipping_state + ' ' + shipment.shipping_zip }}
                 </td>
             </tr>
             

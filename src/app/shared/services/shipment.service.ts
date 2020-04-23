@@ -12,14 +12,15 @@ export class ShipmentService {
 
     private baseurl = environment.url + '';
     // private pa_paginator;
-    paginatorSource$ = new BehaviorSubject<any>({});
-    paginatorSource
+    private paginatorSource$ = new BehaviorSubject<any>({});
+    paginatorSource 
+    private pendingApprovalShipmentsSource$: BehaviorSubject<ShipmentModel[]> =
+         <BehaviorSubject<ShipmentModel[]>> new BehaviorSubject(new Array<ShipmentModel>());
     pendingApprovalShipmentsSource: ShipmentModel[];
-    pendingApprovalShipmentsSource$: BehaviorSubject<ShipmentModel[]>;
-
-    constructor(private http: HttpClient) { 
-        // this.initPendingApprovalshipments();
-    }
+    private topSearchStringSource$: BehaviorSubject<string> = new BehaviorSubject<string>(''); 
+    topSearchString: Observable<string> = this.topSearchStringSource$.asObservable();
+    
+    constructor(private http: HttpClient) {}
 
     initPendingApprovalshipments(search?: string, queryParams?: any) { 
         search = (search) ? search.trim() : '';
@@ -32,10 +33,6 @@ export class ShipmentService {
             pathParams += ((queryParams.hasOwnProperty('sort_by')) ? queryParams.sort_by : 'date_created') + '/';
             pathParams += ((queryParams.hasOwnProperty('sort_order')) ? queryParams.sort_by : 'ASC') + '/';
             pathParams += ((queryParams.hasOwnProperty('start')) ? queryParams.start : '0') + '/';
-        }
-
-        if (!this.pendingApprovalShipmentsSource$) {
-            this.pendingApprovalShipmentsSource$ = <BehaviorSubject<ShipmentModel[]>> new BehaviorSubject(new Array<ShipmentModel>()); 
         }
         this.http.get(
             this.baseurl + path + pathParams,
@@ -71,6 +68,10 @@ export class ShipmentService {
 
     getPendingApprovalPagination(): Observable<ShipmentModel[]> {
         return this.paginatorSource$.asObservable();
+    }
+
+    setTopSearchString(currentStr: string) {
+        this.topSearchStringSource$.next(currentStr);
     }
     
 }

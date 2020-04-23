@@ -1,7 +1,8 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, Output } from '@angular/core';
 import { ShipmentService } from 'src/app/shared/services/shipment.service';
 import { ShipmentModel } from 'src/app/shared/models/shipment.model';
 import { Observable } from 'rxjs';
+import { EventEmitter } from 'protractor';
 
 @Component({
     selector: 'pa-top-search-bar',
@@ -10,7 +11,6 @@ import { Observable } from 'rxjs';
 })
 
 export class TopSearchBarComponent implements OnInit {
-
     searchStr: string = '';
     shipments: ShipmentModel[];
     shipments$: Observable<ShipmentModel[]>;
@@ -19,10 +19,12 @@ export class TopSearchBarComponent implements OnInit {
     
     ngOnInit() {
         console.log('init top search bar')
+        this.getShipments();
     }
 
     searchBy() {
         console.log('input.text', this.searchStr);
+        this.shipmentService.setTopSearchString(this.searchStr);
         this.getShipments();
     }
 
@@ -35,7 +37,8 @@ export class TopSearchBarComponent implements OnInit {
             console.log('response on search component', resp);
         }, (error) => {
             console.log('Request error detected ' + error.message);
-        });
+        }); 
+        
     }
 
 }

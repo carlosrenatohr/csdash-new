@@ -13,11 +13,13 @@ export class DatatableComponent implements OnInit {
 
     shipments: ShipmentModel[];
     shipments$: Observable<ShipmentModel[]>;
+    customCandies: Number[];
     
     constructor(private shipmentService: ShipmentService) {}
     
     ngOnInit() {
         this.getShipments();
+        this.customCandies = Array(20).fill(1).map((x,i)=>i); 
     }
 
     getShipments() {
