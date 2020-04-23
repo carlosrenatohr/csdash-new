@@ -1,6 +1,6 @@
-<div *ngIf="showPagination">
+<div *ngIf="showPagination" id="pagination-bar">
   
-  <nav  aria-label="Page navigation example" class="d-flex flex-row-reverse">
+  <nav  aria-label="Page navigation example" class="d-flex flex-row">
     <pagination 
       [totalItems]="pagination.total_shipments"
       [maxSize]="paginationData.maxSize"
@@ -9,6 +9,8 @@
       [(ngModel)]="currentPage"
       (numPages)="getTotalPages($event)"
       [itemsPerPage]="paginationData.itemsPerPage" 
+      previousText="&lsaquo;" nextText="&rsaquo;"
+      firstText="&laquo;" lastText="&raquo;" 
       ></pagination>     
   </nav>
     
