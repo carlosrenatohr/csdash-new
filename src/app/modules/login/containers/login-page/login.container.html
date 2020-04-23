@@ -20,16 +20,38 @@
                 <div class="mb20"></div>
                 <!-- <div><?php echo validation_errors(); ?></div> -->
                 <!-- <?php if($this->flag_logout!=''): ?> -->
-                <div class="alert alert-danger">Unable to Login at this moment</div>
+                <div class="alert alert-danger" *ngIf="errorLogin">
+                    Unable to Login at this moment
+                </div>
                 <!-- <?php endif; ?> -->
-                <form method="post" action="<?= site_url('csdashboard/login/verify')?>">
+                <form [formGroup]="loginForm" method="post" action="">
                     <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
                     <h4 class="nomargin">Sign In</h4>
                     <p class="mt5 mb20">Login to access CSDashboard.</p>
 
-                    <input type="text" class="form-control uname" name="username" placeholder="Username" />
-                    <input type="password" class="form-control pword" name="password" placeholder="Password" />
-                    <button class="btn btn-success btn-block">Sign In</button>
+                    <div class="form-group">
+                        <input type="text" class="form-control uname"
+                            name="username" placeholder="Username"
+                            formControlName="username" />    
+                        <span class="help-block"
+                             *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">
+                            Please enter a valid username.
+                        </span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="password" class="form-control pword"
+                         name="password" placeholder="Password" formControlName="password" />
+                         <span class="help-block"
+                                *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">>
+                             Password is a required field to login.
+                         </span>
+                    </div>    
+                    
+                    <button class="btn btn-success btn-block"
+                    (click)="submitLogin()">
+                        Sign In
+                    </button>
 
                 </form>
             </div><!-- col-sm-5 -->
