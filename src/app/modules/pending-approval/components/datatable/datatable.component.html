@@ -2,16 +2,16 @@
     No shipments found.
 </p>
 
-<div  id="shipment-search" >
-    <table *ngIf="shipments.length > 0 " class="table" id="shipment-list">
+<div  >
+    <table *ngIf="shipments.length > 0 " class="table table-striped table-hover text-center" id="shipment-list">
         <colgroup>
             <col span="1" style="width:20px" />
         </colgroup>
         <thead>
             <tr>
-                <td>-</td>
-                <td></td>
-                <td></td>
+                <td>&nbsp;</td>
+                <td>Check All</td>
+                <td>&nbsp;</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -76,50 +76,52 @@
             </tr>
             <tr class="not_hide">
                 <td>&nbsp;</td>
-                  <td><input type="checkbox" class="check_all"></td>
-                  <td>&nbsp;</td>
-                  <td class="order_id">Order ID</td>
-                <td class="shipment_id">Shipment ID</td>
-                <td class="date">Date<br> Created</td>
-                <td class="days_pending">Days<br>Pending</td>
-                <td class="status">Status</td>
-                <td class="note">Error</td>
-                <td class="facility">Facility</td>
-                <td class="shipping_method">Shipping<br> Method</td>
-                <td class="state">State</td>
-                <td class="ww">WW<br>State</td>
-                <td class="chocolate_state">Chocolate<br>State</td>
-                <td class="contains_chocolate">Contains<br>Chocolate</td>
-                <td class="sku">SKU to ship</td>
-                <td class="sku">Item Count</td>
-                <!-- <td class="sku">SKU<br>Update</td> -->
-                <td class="local_weather">Local<br>Weather</td>
-                <td class="ids_weather">IDS<br>Weather</td>
-                <td class="sku_error">SKU Error</td>
-                <td class="item_1">Item 1</td>
-                <td class="item_2">Item 2</td>
-                <td class="item_3">Item 3</td>
-                <td class="item_4">Item 4</td>
-                <td class="item_5">Item 5</td>
-                <td class="item_6">Item 6</td>
-                <td class="item_sku">Sku fc 1</td>
-                <td class="item_sku">Sku fc 2</td>
-                <td class="item_sku">Sku fc 3</td>
-                <td class="item_sku">Sku fc 4</td>
-                <td class="item_sku">Sku fc 5</td>
-                <td class="item_sku">Sku fc 6</td>
-                <td class="item_sku">Sku pr fc 1</td>
-                <td class="item_sku">Sku pr fc 2</td>
-                <td class="item_sku">Sku pr fc 3</td>
-                <td class="item_sku">Sku pr fc 4</td>
-                <td class="item_sku">Sku pr fc 5</td>
-                <td class="item_sku">Sku pr fc 6</td>
-                <td class="item_sku">Sku sp 1</td>
-                <td class="item_sku">Sku pr sp 1</td>
-                <td class="gift_card_sku">Gift Card SKU</td>
-                <td class="last_skus_on_demand"> Previous SKUs</td>
-                <td class="customer">Customer</td>
-                <td class="shipping_info">Shipping Info</td>
+                <td>
+                    <!-- <input type="checkbox" class="check_all"> -->
+                </td>
+                <td>&nbsp;</td>
+                <th scope="col" class="order_id">Order ID</th>
+                <th class="shipment_id">Shipment ID</th>
+                <th scope="col" class="date">Date<br> Created</th>
+                <th scope="col" class="days_pending">Days<br>Pending</th>
+                <th scope="col" class="status">Status</th>
+                <th scope="col" class="note">Error</th>
+                <th scope="col" class="facility">Facility</th>
+                <th scope="col" class="shipping_method">Shipping<br> Method</th>
+                <th scope="col" class="state">State</th>
+                <th scope="col" class="ww">WW<br>State</th>
+                <th scope="col" class="chocolate_state">Chocolate<br>State</th>
+                <th scope="col" class="contains_chocolate">Contains<br>Chocolate</th>
+                <th scope="col" class="sku">SKU to ship</th>
+                <th scope="col" class="sku">Item Count</th>
+                <!-- <td class="sku">SKU<br>Update</th> -->
+                <th scope="col" class="local_weather">Local<br>Weather</th>
+                <th scope="col" class="ids_weather">IDS<br>Weather</th>
+                <th scope="col" class="sku_error">SKU Error</th>
+                <th scope="col" class="item_1">Item 1</th>
+                <th scope="col" class="item_2">Item 2</th>
+                <th scope="col" class="item_3">Item 3</th>
+                <th scope="col" class="item_4">Item 4</th>
+                <th scope="col" class="item_5">Item 5</th>
+                <th scope="col" class="item_6">Item 6</th>
+                <th scope="col" class="item_sku">Sku fc 1</th>
+                <th scope="col" class="item_sku">Sku fc 2</th>
+                <th scope="col" class="item_sku">Sku fc 3</th>
+                <th scope="col" class="item_sku">Sku fc 4</th>
+                <th scope="col" class="item_sku">Sku fc 5</th>
+                <th scope="col" class="item_sku">Sku fc 6</th>
+                <th scope="col" class="item_sku">Sku pr fc 1</th>
+                <th scope="col" class="item_sku">Sku pr fc 2</th>
+                <th scope="col" class="item_sku">Sku pr fc 3</th>
+                <th scope="col" class="item_sku">Sku pr fc 4</th>
+                <th scope="col" class="item_sku">Sku pr fc 5</th>
+                <th scope="col" class="item_sku">Sku pr fc 6</th>
+                <th scope="col" class="item_sku">Sku sp 1</th>
+                <th scope="col" class="item_sku">Sku pr sp 1</th>
+                <th scope="col" class="gift_card_sku">Gift Card SKU</th>
+                <th scope="col" class="last_skus_on_demand"> Previous SKUs</th>
+                <th scope="col" class="customer">Customer</th>
+                <th scope="col" class="shipping_info">Shipping Info</th>
             </tr>
         </thead>
         <tbody>
@@ -134,7 +136,8 @@
                     {{ shipment.shipment_id }}
                 </td>
                 <td class="date"><span></span>
-                    {{ shipment.date_created }}
+                    {{ shipment.date_created | date: "shortDate" }}
+                    <!-- {{ shipment.date_created | date: "shortDate" }} -->
                 </td>
                 <td class="days_pending"><span></span>
                     <!-- {{ shipment.from_order_shipment_date}} -->

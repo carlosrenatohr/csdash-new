@@ -4,7 +4,7 @@ import { OnInit, Component } from '@angular/core';
 @Component({
     selector: 'ccsp-pending-approval-container',
     templateUrl: './pending-approval.container.html',
-    styleUrls: []
+    styleUrls: ['pending-approval.container.scss']
 })
 
 export class PendingApprovalContainer implements OnInit {

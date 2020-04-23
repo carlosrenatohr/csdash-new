@@ -7,4 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopRowsPerPageComponent implements OnInit {
     ngOnInit() {}
+
+    getPaginationData() {
+                
+    }
 }

@@ -7,7 +7,7 @@ import { EventEmitter } from 'protractor';
 @Component({
     selector: 'pa-top-search-bar',
     templateUrl: './top-search-bar.component.html', 
-    styles: ['top-search.component.scss']
+    styleUrls: ['top-search-bar.component.scss']
 })
 
 export class TopSearchBarComponent implements OnInit {

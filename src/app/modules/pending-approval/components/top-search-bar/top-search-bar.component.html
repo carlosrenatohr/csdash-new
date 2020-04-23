@@ -1,10 +1,13 @@
 <p style="font-size: 12px">You can change the SKU to ship and the Facilicity by clicking on them
     <form id="search-form" action="" method="GET">
         <div class="search-filter">
-            <label>
-                <input type="search" name="q" [(ngModel)]="searchStr" (input)="searchBy()">
-                <!-- <input id="q" value="" type="hidden"> -->
-                <button type="submit">Search</button>
-            </label>
+            <div class="input-group mb-2 mr-sm-2">
+                <div class="input-group-prepend">
+                  <!-- <div class="input-group-text">@</div> -->
+                </div>
+                <input type="text" class="form-control" 
+                type="search" name="q" [(ngModel)]="searchStr" (input)="searchBy()" />
+                <button class="btn btn-secondary" type="submit">Search</button>
+              </div>
         </div> 
     </form> 
