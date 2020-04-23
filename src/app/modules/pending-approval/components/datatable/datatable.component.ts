@@ -35,8 +35,5 @@ export class DatatableComponent implements OnInit {
             console.log('Request error detected ' + error.message);
         });
         console.log('dataQuery', this.shipments$);
-
-        
-
     }
 }

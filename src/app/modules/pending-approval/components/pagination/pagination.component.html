@@ -7,10 +7,10 @@
       [boundaryLinks]="paginationData.boundaryLinks" 
       (pageChanged)="pageChanged($event)" 
       [(ngModel)]="currentPage"
+      (numPages)="getTotalPages($event)"
+      [itemsPerPage]="paginationData.itemsPerPage" 
       ></pagination>     
   </nav>
     
-  <!-- <button class="btn btn-primary" (click)="setPage()">Set to Page 91</button> -->
-  <!-- <b>Current Page: {{ currentPage }}</b>   -->
 </div>
   

@@ -2,8 +2,8 @@
     <form id="search-form" action="" method="GET">
         <div class="search-filter">
             <label>
-                <input type="search" name="q" value="">
-                <input id="q" value="" type="hidden">
+                <input type="search" name="q" [(ngModel)]="searchStr" (input)="searchBy()">
+                <!-- <input id="q" value="" type="hidden"> -->
                 <button type="submit">Search</button>
             </label>
         </div> 
