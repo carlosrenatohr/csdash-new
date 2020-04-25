@@ -11,7 +11,6 @@ import { ShipmentsPendingApprovalResponse } from '../models/shipments_pa_respons
 export class ShipmentService {
 
     private baseurl = environment.url + '';
-    // private pa_paginator;
     private paginatorSource$ = new BehaviorSubject<any>({});
     paginatorSource: ShipmentsPendingApprovalResponse;
     private pendingApprovalShipmentsSource$: BehaviorSubject<ShipmentModel[]> =
@@ -20,6 +19,8 @@ export class ShipmentService {
     private topSearchStringSource$: BehaviorSubject<string> = new BehaviorSubject<string>(''); 
     public topSearchString: Observable<string> = this.topSearchStringSource$.asObservable();
     public defaultTopPagerNumber: string = '10';
+    private topPagerNumberSource$: BehaviorSubject<string> = new BehaviorSubject<string>(this.defaultTopPagerNumber); 
+    public topPagerNumber: Observable<string> = this.topPagerNumberSource$.asObservable();
     
     constructor(private http: HttpClient) {}
 
@@ -74,4 +75,8 @@ export class ShipmentService {
         this.topSearchStringSource$.next(currentStr);
     }
     
+    setTopPagerNumber(currentStr: string) {
+        this.defaultTopPagerNumber = currentStr;
+        this.topPagerNumberSource$.next(currentStr);
+    }
 }

@@ -2,7 +2,6 @@ import { OnInit, Component } from '@angular/core';
 import { ShipmentService } from 'src/app/shared/services/shipment.service';
 import { ShipmentModel } from 'src/app/shared/models/shipment.model';
 import { Observable } from 'rxjs';
-import { EventEmitter } from 'protractor';
 
 @Component({
     selector: 'pa-top-search-bar',
