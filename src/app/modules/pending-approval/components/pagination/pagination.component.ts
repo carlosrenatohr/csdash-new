@@ -20,12 +20,12 @@ export class PaginationComponent implements OnInit, OnDestroy {
     public paginationData = {
         maxSize: 10,
         boundaryLinks: true,
-        itemsPerPage: 50, 
+        itemsPerPage: this.shipmentService.defaultTopPagerNumber, 
         directionLinks: true,
         rotate: true
     };
     topSearchString: string = '';
-    pagination$: Observable<any>;
+    pagination$;
     shipments$: Observable<ShipmentModel[]>
     topSearchString$: Observable<string>;
 
@@ -53,14 +53,10 @@ export class PaginationComponent implements OnInit, OnDestroy {
         console.log('Page Change event', event); 
         this.currentPage = event.page;
         //
-        const pathParams = { rows_per_page: this.paginationData.itemsPerPage, start: ((this.paginationStart) + (+this.currentPage * (this.paginationData.itemsPerPage))) };
+        const start: number = (+this.currentPage - 1) * +this.paginationData.itemsPerPage;
+        const pathParams = { rows_per_page: this.paginationData.itemsPerPage, start: start };
         this.shipmentService.initPendingApprovalshipments(this.topSearchString, pathParams);
-        this.shipments$ = this.shipmentService.getPendingApprovalPagination()
-        this.shipments$.subscribe(resp => {
-            this.pagination = resp;
-            console.log('response on pagination', resp);
-            // 
-        });
+        this.shipments$ = this.shipmentService.getPendingApprovalPagination();
     }
 
     getTotalPages(ev) {
@@ -68,8 +64,8 @@ export class PaginationComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        // this.pagination$.unsubscribe();
-        // this.shipments$.complete();
-    }
+        this.pagination$.next();
+        this.pagination$.complete();
+    } 
 
 }

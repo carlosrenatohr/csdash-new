@@ -1,9 +1,13 @@
-<p *ngIf="shipments.length < 1 ">
-    No shipments found.
-</p>
 
-<div  >
-    <table *ngIf="shipments.length > 0 " class="table table-striped table-hover text-center" id="shipment-list">
+
+<ng-template #loading>
+    <p>No shipments found.</p>
+    <!-- <loading-component></loading-component> -->
+    <!-- <p>Shows when no data, waiting for Api</p> -->
+</ng-template>
+
+<div  *ngIf="(shipments$ | async)?.length  > 0; else loading">
+    <table  class="table table-striped table-hover text-center" id="shipment-list"> 
         <colgroup>
             <col span="1" style="width:20px" />
         </colgroup>
@@ -125,7 +129,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let shipment of shipments">
+            <tr *ngFor="let shipment of shipments$ | async"> 
                 <td>&nbsp;</td>
                 <td><input type="checkbox" value="" class="shipment_item"></td>
                 <td><a class="button-pink smaller button_void">Void</a></td>

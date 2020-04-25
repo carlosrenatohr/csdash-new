@@ -13,12 +13,13 @@ export class ShipmentService {
     private baseurl = environment.url + '';
     // private pa_paginator;
     private paginatorSource$ = new BehaviorSubject<any>({});
-    paginatorSource 
+    paginatorSource: ShipmentsPendingApprovalResponse;
     private pendingApprovalShipmentsSource$: BehaviorSubject<ShipmentModel[]> =
          <BehaviorSubject<ShipmentModel[]>> new BehaviorSubject(new Array<ShipmentModel>());
     pendingApprovalShipmentsSource: ShipmentModel[];
     private topSearchStringSource$: BehaviorSubject<string> = new BehaviorSubject<string>(''); 
-    topSearchString: Observable<string> = this.topSearchStringSource$.asObservable();
+    public topSearchString: Observable<string> = this.topSearchStringSource$.asObservable();
+    public defaultTopPagerNumber: string = '10';
     
     constructor(private http: HttpClient) {}
 
@@ -29,7 +30,7 @@ export class ShipmentService {
         const path = 'shipments/pending_approval_json/';
         let pathParams = '';
         if (queryParams) {
-            pathParams += ((queryParams.hasOwnProperty('rows_per_page')) ? queryParams.rows_per_page : '50') + '/';
+            pathParams += ((queryParams.hasOwnProperty('rows_per_page')) ? queryParams.rows_per_page : this.defaultTopPagerNumber) + '/';
             pathParams += ((queryParams.hasOwnProperty('sort_by')) ? queryParams.sort_by : 'date_created') + '/';
             pathParams += ((queryParams.hasOwnProperty('sort_order')) ? queryParams.sort_by : 'ASC') + '/';
             pathParams += ((queryParams.hasOwnProperty('start')) ? queryParams.start : '0') + '/';
@@ -40,7 +41,6 @@ export class ShipmentService {
             
         ).pipe(map((data: ShipmentsPendingApprovalResponse) => {
             const shipmentsArray: ShipmentModel[] = [];
-            const pagination = {};
             // const shipmentsObj = {...Object.entries(data)};
             if (data.hasOwnProperty('shipments_found') && data.shipments_found) {
                 const {shipments, shipments_found,  ...pagination } = data;     
@@ -54,11 +54,11 @@ export class ShipmentService {
             }
         }))
         .subscribe(response => {
-            this.paginatorSource$.next(response.pagination);
-            this.paginatorSource = response.pagination;
             this.pendingApprovalShipmentsSource$.next(response.shipments);
             this.pendingApprovalShipmentsSource = response.shipments;
-        })
+            this.paginatorSource$.next(response.pagination);
+            this.paginatorSource = response.pagination;
+        });
         
     }
 

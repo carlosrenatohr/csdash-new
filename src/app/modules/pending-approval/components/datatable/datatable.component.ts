@@ -11,10 +11,9 @@ import { Observable } from 'rxjs';
 })
 export class DatatableComponent implements OnInit {
 
-    shipments: ShipmentModel[];
     shipments$: Observable<ShipmentModel[]>;
     customCandies: Number[];
-    
+        
     constructor(private shipmentService: ShipmentService) {}
     
     ngOnInit() {
@@ -24,18 +23,8 @@ export class DatatableComponent implements OnInit {
 
     getShipments() {
         const query:string = '';
-        const pathParams = { rows_per_page: 50, start: 0 };
+        const pathParams = { rows_per_page: this.shipmentService.defaultTopPagerNumber, start: 0 };
         this.shipmentService.initPendingApprovalshipments(query, pathParams);
-        this.shipments$ = this.shipmentService.getPendingApprovalShipments()
-        this.shipments$.subscribe(resp => {
-        // this.shipments$.subscribe(response => { 
-            this.shipments = resp;
-            // console.log('shipments', response.shipments);
-            // console.log('pagination', response.pagination);
-            console.log('response on dt', resp);
-        }, (error) => {
-            console.log('Request error detected ' + error.message);
-        });
-        console.log('dataQuery', this.shipments$);
+        this.shipments$ = this.shipmentService.getPendingApprovalShipments();
     }
 }
