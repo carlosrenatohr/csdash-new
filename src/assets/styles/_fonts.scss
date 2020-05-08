@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'OpenSans-csd';
+    src: url('/assets/styles/fonts/OpenSans/OpenSans.ttf') format('truetype');
+    // src: url('/assets/styles/fonts/ThirstySoftLight/ThirstySoftLight.eot?#iefix') format('embedded-opentype'),
+    //   url('/assets/styles/fonts/ThirstySoftLight/ThirstySoftLight.woff') format('woff'),
+    //   url('/assets/styles/fonts/ThirstySoftLight/ThirstySoftLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  $open-sans: 'OpenSans', sans-serif;
